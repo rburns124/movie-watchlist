@@ -93,6 +93,10 @@ function App() {
 
   return (
     <div className="App">
+      <div className="stars"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
+      <div className="shooting-star"></div>
       {addedMessage && <div className="toast-notification">{addedMessage}</div>}
 
       <header className="app-header">
