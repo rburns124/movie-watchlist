@@ -32,4 +32,5 @@ databases:
     user: movie_user
     plan: free
     region: oregon
-    postgresVersion: 15
+    ipAllowList: []
+    postgresMajorVersion: 15
