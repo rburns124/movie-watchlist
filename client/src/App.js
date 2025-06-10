@@ -12,6 +12,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [activeTab, setActiveTab] = useState('search');
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     const savedTab = localStorage.getItem('activeTab');
@@ -84,6 +85,11 @@ function App() {
   };
 
   const sortedMovies = [...movies].sort((a, b) => a.title.localeCompare(b.title));
+  const filteredMovies = sortedMovies.filter(movie => {
+    if (filter === 'watched') return movie.watched;
+    if (filter === 'not-watched') return !movie.watched;
+    return true;
+  });
 
   return (
     <div className="App">
@@ -91,8 +97,11 @@ function App() {
 
       <header className="app-header">
         <div className="app-header-left">
-          <h1 className="site-title">🎬 Movie Watchlist</h1>
-          <p className="site-subtitle">by Rob Burns</p>
+          <span className="logo">🍿</span>
+          <div className="title-wrapper">
+            <h1 className="site-title">Movie Watchlist</h1>
+            <p className="site-subtitle">by Rob Burns</p>
+          </div>
         </div>
         <div className="nav-tabs">
           {activeTab !== 'search' && (
@@ -104,7 +113,7 @@ function App() {
         </div>
       </header>
 
-      {loading && <p className="loading-message">⏳ Loading...</p>}
+      {loading && <div className="loading-spinner" aria-label="Loading" />}
 
       {activeTab === 'search' && (
         <>
@@ -120,7 +129,7 @@ function App() {
             <button className="clear-btn" onClick={clearSearch}>Clear</button>
           </div>
 
-          <div className="movie-grid">
+          <div className={`movie-grid ${searchResults.length ? 'fade-in' : ''}`}>
             {searchResults.map(movie => (
               <div key={movie.imdbID} className="movie-card">
                 <div className="movie-image-wrapper">
@@ -146,11 +155,16 @@ function App() {
             <p><strong>✅ Watched:</strong> {movies.filter(m => m.watched).length}</p>
             <p><strong>❌ Not Watched:</strong> {movies.filter(m => !m.watched).length}</p>
           </div>
+          <div className="filter-buttons">
+            <button className={filter === 'all' ? 'active' : ''} onClick={() => setFilter('all')}>All</button>
+            <button className={filter === 'watched' ? 'active' : ''} onClick={() => setFilter('watched')}>Watched</button>
+            <button className={filter === 'not-watched' ? 'active' : ''} onClick={() => setFilter('not-watched')}>Not Watched</button>
+          </div>
           {movies.length === 0 ? (
             <p className="empty-message">🎉 Your watchlist is empty — you're all caught up!</p>
           ) : (
-            <div className="movie-grid">
-              {sortedMovies.map(movie => (
+            <div className={`movie-grid ${filteredMovies.length ? 'fade-in' : ''}`}>
+              {filteredMovies.map(movie => (
                 <div key={movie.id} className="movie-card">
                   <div className="movie-image-wrapper">
                     <img src={movie.poster_url} alt={movie.title} />
@@ -161,7 +175,7 @@ function App() {
                   </div>
                   <div className="movie-info">
                     <strong>{movie.title}</strong>
-                    <p>{movie.watched ? '✅ Watched' : '❌ Not Watched'}</p>
+                    <span className={`status-badge ${movie.watched ? 'watched' : 'not-watched'}`}>{movie.watched ? 'Watched' : 'Not Watched'}</span>
                   </div>
                 </div>
               ))}
