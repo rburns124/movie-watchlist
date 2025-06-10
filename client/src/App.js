@@ -96,6 +96,7 @@ function App() {
       {addedMessage && <div className="toast-notification">{addedMessage}</div>}
 
       <header className="app-header">
+        <div className="header-content">
         <div className="app-header-left">
           <span className="logo">🍿</span>
           <div className="title-wrapper">
@@ -111,9 +112,10 @@ function App() {
             <button onClick={() => setActiveTab('watchlist')}>My Watchlist</button>
           )}
         </div>
+        </div>
       </header>
 
-      {loading && <div className="loading-spinner" aria-label="Loading" />}
+
 
       {activeTab === 'search' && (
         <>
@@ -135,6 +137,7 @@ function App() {
                 <div className="movie-image-wrapper">
                   <img src={movie.Poster} alt={movie.Title} />
                   <div className="overlay">
+                    <p className="overlay-title">{movie.Title}</p>
                     <button onClick={() => addMovieFromSearch(movie)}>Add Movie</button>
                   </div>
                 </div>
@@ -169,6 +172,7 @@ function App() {
                   <div className="movie-image-wrapper">
                     <img src={movie.poster_url} alt={movie.title} />
                     <div className="overlay">
+                      <p className="overlay-title">{movie.title}</p>
                       <button onClick={() => toggleWatched(movie.id)}>
                         {movie.watched ? 'Not Watched' : 'Watch'}
                       </button>
@@ -177,7 +181,7 @@ function App() {
                   </div>
                   <div className="movie-info">
                     <strong>{movie.title}</strong>
-                    <span className={`status-badge ${movie.watched ? 'watched' : 'not-watched'}`}>{movie.watched ? 'Watched' : 'Not Watched'}</span>
+                    <span className={`status-badge ${movie.watched ? 'watched' : 'not-watched'}`}>{movie.watched ? '✅ Watched' : '❌ Not Watched'}</span>
                   </div>
                 </div>
               ))}
