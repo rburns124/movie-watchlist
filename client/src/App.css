@@ -136,12 +136,13 @@ body {
 
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, 180px);
   gap: 1.5rem;
   max-width: 1000px;
   margin: 0 auto 3rem;
   padding: 0 1rem;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  justify-content: center;
 }
 
 .fade-in {
@@ -163,10 +164,14 @@ body {
 .movie-image-wrapper {
   position: relative;
   overflow: hidden;
+  width: 180px;
+  height: 270px;
 }
 
 .movie-image-wrapper img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
   transition: transform 0.3s ease;
 }
@@ -385,7 +390,8 @@ body {
   }
 
   .movie-grid {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(auto-fill, 180px);
+    justify-content: center;
   }
 
   .centered-summary {
