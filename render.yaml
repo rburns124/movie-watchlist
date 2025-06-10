@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: movie-watchlist-backend
+    env: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: movie-watchlist-db
+          property: host
+      - key: DB_USER
+        fromDatabase:
+          name: movie-watchlist-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: movie-watchlist-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: movie-watchlist-db
+          property: database
+
+databases:
+  - name: movie-watchlist-db
+    databaseName: movie_watchlist
+    user: movie_user
+    plan: free
+    region: oregon
+    type: mysql
