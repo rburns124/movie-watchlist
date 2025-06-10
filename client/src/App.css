@@ -5,6 +5,7 @@
   --text-color: #f1f5f9;
   --secondary-text: #94a3b8;
   --primary: #2563eb;
+  --success: #22c55e;
   --danger: #ef4444;
   --card-bg: #1e293b;
 }
@@ -37,8 +38,17 @@ body {
 
 .app-header-left {
   display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo {
+  font-size: 2rem;
+}
+
+.title-wrapper {
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .site-title {
@@ -59,8 +69,8 @@ body {
   border: 2px solid var(--primary);
   color: var(--text-color);
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
   cursor: pointer;
   transition: all 0.3s ease;
   margin-left: 1rem;
@@ -70,11 +80,15 @@ body {
   background-color: var(--primary);
 }
 
+.nav-tabs button.active {
+  background-color: var(--primary);
+}
+
 .section-title {
   text-align: center;
   margin: 2rem 0 1rem;
   font-size: 1.8rem;
-  color: #1e293b;
+  color: var(--text-color);
 }
 
 .search-bar {
@@ -83,25 +97,32 @@ body {
   align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--header-bg);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .search-bar input {
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   font-size: 1rem;
   width: 250px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid var(--header-bg);
+  background: var(--card-bg);
+  color: var(--text-color);
 }
 
 .search-bar button {
   background-color: var(--primary);
   color: var(--text-color);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem;
   border: none;
-  border-radius: 5px;
+  border-radius: 999px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .search-bar .clear-btn {
@@ -110,6 +131,7 @@ body {
 
 .search-bar button:hover {
   background-color: var(--header-bg);
+  transform: translateY(-2px);
 }
 
 .movie-grid {
@@ -119,6 +141,12 @@ body {
   max-width: 1000px;
   margin: 0 auto 3rem;
   padding: 0 1rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s forwards;
 }
 
 .movie-card {
@@ -129,6 +157,7 @@ body {
   position: relative;
   text-align: center;
   color: var(--text-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .movie-image-wrapper {
@@ -144,6 +173,11 @@ body {
 
 .movie-image-wrapper:hover img {
   transform: scale(1.05);
+}
+
+.movie-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 .overlay {
@@ -169,21 +203,40 @@ body {
   background-color: var(--primary);
   color: var(--text-color);
   border: none;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
   margin: 0.25rem;
-  border-radius: 5px;
+  border-radius: 999px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .overlay button:hover {
   background-color: var(--header-bg);
+  transform: translateY(-2px);
 }
 
 .movie-info {
   padding: 0.5rem 1rem 1rem;
   font-size: 0.95rem;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.status-badge.watched {
+  background-color: var(--success);
+}
+
+.status-badge.not-watched {
+  background-color: var(--danger);
 }
 
 .toast-notification {
@@ -222,6 +275,18 @@ body {
   }
 }
 
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .empty-message {
   text-align: center;
   font-size: 1.5rem;
@@ -250,11 +315,35 @@ body {
   flex-wrap: wrap;
 }
 
-.loading-message {
+.filter-buttons {
   text-align: center;
-  font-size: 1.25rem;
-  color: var(--primary);
-  margin: 1rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.filter-buttons button {
+  background: var(--card-bg);
+  border: 1px solid var(--primary);
+  color: var(--text-color);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  margin: 0 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  background: var(--primary);
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--header-bg);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  margin: 2rem auto;
+  animation: spin 1s linear infinite;
 }
 
 /* MOBILE STYLES */
@@ -313,5 +402,9 @@ body {
   .toast-notification {
     width: 90%;
     font-size: 0.9rem;
+  }
+
+  .filter-buttons button {
+    margin: 0.25rem 0.25rem;
   }
 }
