@@ -23,6 +23,8 @@ services:
         fromDatabase:
           name: movie-watchlist-db
           property: database
+      - key: DB_SSL
+        value: true
 
 databases:
   - name: movie-watchlist-db
@@ -30,4 +32,4 @@ databases:
     user: movie_user
     plan: free
     region: oregon
-    type: mysql
+    type: postgres
