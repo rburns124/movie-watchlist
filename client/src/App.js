@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import { API_BASE_URL } from './api';
 
 const OMDB_API_KEY = '86a7816a';
 
@@ -27,20 +28,20 @@ function App() {
 
   const fetchMovies = async () => {
     setLoading(true);
-    const res = await axios.get('http://localhost:5000/api/movies');
+    const res = await axios.get(`${API_BASE_URL}/movies`);
     setMovies(res.data);
     setLoading(false);
   };
 
   const toggleWatched = async (id) => {
     setLoading(true);
-    await axios.put(`http://localhost:5000/api/movies/${id}`);
+    await axios.put(`${API_BASE_URL}/movies/${id}`);
     fetchMovies();
   };
 
   const deleteMovie = async (id) => {
     setLoading(true);
-    await axios.delete(`http://localhost:5000/api/movies/${id}`);
+    await axios.delete(`${API_BASE_URL}/movies/${id}`);
     fetchMovies();
   };
 
@@ -70,7 +71,7 @@ function App() {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/movies', {
+      await axios.post(`${API_BASE_URL}/movies`, {
         title: movie.Title,
         poster_url: movie.Poster
       });
