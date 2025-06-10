@@ -169,7 +169,9 @@ function App() {
                   <div className="movie-image-wrapper">
                     <img src={movie.poster_url} alt={movie.title} />
                     <div className="overlay">
-                      <button onClick={() => toggleWatched(movie.id)}>Toggle</button>
+                      <button onClick={() => toggleWatched(movie.id)}>
+                        {movie.watched ? 'Not Watched' : 'Watch'}
+                      </button>
                       <button onClick={() => deleteMovie(movie.id)}>Remove</button>
                     </div>
                   </div>
