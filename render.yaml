@@ -32,4 +32,4 @@ databases:
     user: movie_user
     plan: free
     region: oregon
-    type: postgres
+    postgresVersion: 15
