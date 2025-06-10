@@ -101,6 +101,7 @@ body {
   background: var(--header-bg);
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--primary);
 }
 
 .search-bar input {
@@ -143,6 +144,7 @@ body {
   padding: 0 1rem;
   transition: transform 0.3s ease, opacity 0.3s ease;
   justify-content: center;
+  place-items: center;
 }
 
 .fade-in {
@@ -224,6 +226,9 @@ body {
 .movie-info {
   padding: 0.5rem 1rem 1rem;
   font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .status-badge {
@@ -392,6 +397,7 @@ body {
   .movie-grid {
     grid-template-columns: repeat(auto-fill, 180px);
     justify-content: center;
+    place-items: center;
   }
 
   .centered-summary {
