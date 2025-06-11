@@ -511,4 +511,8 @@ nav a:hover {
     color: white;
     margin-left: auto;
   }
+
+  .filter-buttons button {
+    margin: 0.25rem 0.25rem;
+  }
 }
