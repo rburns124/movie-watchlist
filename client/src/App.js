@@ -11,7 +11,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [randomMovies, setRandomMovies] = useState([]); // 5 random movies
+  const [randomMovies, setRandomMovies] = useState([]); // 15 random movies
   const [activeTab, setActiveTab] = useState('search');
   const [filter, setFilter] = useState('all');
 
@@ -45,7 +45,7 @@ function App() {
       const getRandomLetter = () =>
         String.fromCharCode(97 + Math.floor(Math.random() * 26));
 
-      const limit = 5;
+      const limit = 15;
       while (collected.length < limit) {
         const letter = getRandomLetter();
         const page = Math.floor(Math.random() * 2) + 1;
