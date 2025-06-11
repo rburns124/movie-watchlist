@@ -98,31 +98,6 @@ function App() {
       <div className="shooting-star"></div>
       <div className="shooting-star"></div>
       {addedMessage && <div className="toast-notification">{addedMessage}</div>}
-
-      <header className="app-header">
-        <div className="header-content">
-        <div className="app-header-left">
-          <div className="title-wrapper">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/moviewatchlist_logo.png`}
-              alt="Movie Watchlist"
-              className="site-logo"
-            />
-          </div>
-        </div>
-        <div className="nav-tabs">
-          {activeTab !== 'search' && (
-            <button onClick={() => setActiveTab('search')}>Search Movies</button>
-          )}
-          {activeTab !== 'watchlist' && (
-            <button onClick={() => setActiveTab('watchlist')}>My Watchlist</button>
-          )}
-        </div>
-        </div>
-      </header>
-
-
-
       {activeTab === 'search' && (
         <>
           <h2 className="section-title">🔍 Search Movies</h2>
