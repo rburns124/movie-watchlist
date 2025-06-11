@@ -102,12 +102,14 @@ function App() {
       <header className="app-header">
         <div className="header-content">
         <div className="app-header-left">
+          <span className="logo">🍿</span>
           <div className="title-wrapper">
             <img
               src={`${process.env.PUBLIC_URL}/images/moviewatchlist_logo.png`}
               alt="Movie Watchlist"
               className="site-logo"
             />
+            <p className="site-subtitle">by Rob Burns</p>
           </div>
         </div>
         <div className="nav-tabs">
