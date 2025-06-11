@@ -131,9 +131,9 @@ body::before {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(0, 0, 0, 0.8);
   color: var(--text-color);
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   margin-bottom: 1.5rem;
 }
@@ -161,7 +161,7 @@ body::before {
 
 .site-title-text {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
 }
 
@@ -177,6 +177,12 @@ body::before {
   color: var(--secondary-text);
 }
 
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .nav-tabs button {
   background: transparent;
   border: none;
@@ -188,17 +194,13 @@ body::before {
   transition: color 0.3s ease;
 }
 
-.nav-tabs button:hover,
-.nav-tabs button.active {
+.nav-tabs button:hover {
   color: var(--primary);
 }
 
 .tab-divider {
-  width: 1px;
-  height: 60%;
-  background-color: rgba(255, 255, 255, 0.3);
-  margin: 0 1rem;
-  align-self: center;
+  margin: 0 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .section-title {
