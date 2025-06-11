@@ -11,6 +11,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]); // default list
   const [activeTab, setActiveTab] = useState('search');
   const [filter, setFilter] = useState('all');
 
@@ -25,12 +26,31 @@ function App() {
 
   useEffect(() => {
     fetchMovies();
+    fetchPopularMovies();
   }, []);
 
   const fetchMovies = async () => {
     setLoading(true);
     const res = await axios.get(`${API_BASE_URL}/movies`);
     setMovies(res.data);
+    setLoading(false);
+  };
+
+  const fetchPopularMovies = async () => {
+    setLoading(true);
+    try {
+      const [page1, page2] = await Promise.all([
+        axios.get(`https://www.omdbapi.com/?s=2023&type=movie&page=1&apikey=${OMDB_API_KEY}`),
+        axios.get(`https://www.omdbapi.com/?s=2023&type=movie&page=2&apikey=${OMDB_API_KEY}`)
+      ]);
+      const results = [
+        ...(page1.data.Search || []),
+        ...(page2.data.Search || [])
+      ].slice(0, 15);
+      setPopularMovies(results);
+    } catch (error) {
+      console.error('Error fetching popular movies:', error);
+    }
     setLoading(false);
   };
 
@@ -104,17 +124,17 @@ function App() {
           <h1 className="site-title-text">Movie Watchlist</h1>
           <div className="nav-tabs">
             <button
-              className={activeTab === 'watchlist' ? 'active' : ''}
-              onClick={() => setActiveTab('watchlist')}
-            >
-              My Watchlist
-            </button>
-            <span className="tab-divider">|</span>
-            <button
               className={activeTab === 'search' ? 'active' : ''}
               onClick={() => setActiveTab('search')}
             >
               Search Movies
+            </button>
+            <span className="tab-divider">|</span>
+            <button
+              className={activeTab === 'watchlist' ? 'active' : ''}
+              onClick={() => setActiveTab('watchlist')}
+            >
+              My Watchlist
             </button>
           </div>
         </div>
@@ -136,8 +156,8 @@ function App() {
             <button className="clear-btn" onClick={clearSearch}>Clear</button>
           </div>
 
-          <div className={`movie-grid ${searchResults.length ? 'fade-in' : ''}`}>
-            {searchResults.map(movie => (
+          <div className={`movie-grid ${searchResults.length || popularMovies.length ? 'fade-in' : ''}`}>
+            {(searchResults.length ? searchResults : popularMovies).map(movie => (
               <div key={movie.imdbID} className="movie-card">
                 <div className="movie-image-wrapper">
                   <img src={movie.Poster} alt={movie.Title} />
@@ -179,7 +199,7 @@ function App() {
                     <div className="overlay">
                       <p className="overlay-title">{movie.title}</p>
                       <button onClick={() => toggleWatched(movie.id)}>
-                        {movie.watched ? 'Not Watched' : 'Watch'}
+                        {movie.watched ? 'Not Watched' : 'Watched'}
                       </button>
                       <button onClick={() => deleteMovie(movie.id)}>Remove</button>
                     </div>

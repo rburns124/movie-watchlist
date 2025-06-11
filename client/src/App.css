@@ -243,7 +243,7 @@ body {
 }
 
 .search-bar button:hover {
-  background-color: var(--header-bg);
+  background-color: var(--primary);
   transform: translateY(-2px);
 }
 
@@ -337,7 +337,7 @@ body {
 }
 
 .overlay button:hover {
-  background-color: var(--header-bg);
+  background-color: var(--primary);
   transform: translateY(-2px);
 }
 
@@ -456,16 +456,20 @@ body {
   background: var(--card-bg);
   border: 1px solid var(--primary);
   color: var(--text-color);
-  padding: 0.4rem 1rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 999px;
   margin: 0 0.25rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .filter-buttons button.active,
 .filter-buttons button:hover {
   background: var(--primary);
+  transform: translateY(-2px);
 }
 
 /* MOBILE STYLES */
