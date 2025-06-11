@@ -84,7 +84,10 @@ function App() {
   };
 
   const searchMovies = async () => {
-    if (!searchQuery) return;
+    if (!searchQuery) {
+      fetchRandomMovies();
+      return;
+    }
     setLoading(true);
     try {
       const res = await axios.get(`https://www.omdbapi.com/?s=${searchQuery}&apikey=${OMDB_API_KEY}`);
@@ -98,6 +101,7 @@ function App() {
   const clearSearch = () => {
     setSearchQuery('');
     setSearchResults([]);
+    fetchRandomMovies();
   };
 
   const addMovieFromSearch = async (movie) => {
