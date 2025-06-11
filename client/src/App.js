@@ -11,7 +11,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [popularMovies, setPopularMovies] = useState([]); // default list
+  const [randomMovies, setRandomMovies] = useState([]); // 15 random movies
   const [activeTab, setActiveTab] = useState('search');
   const [filter, setFilter] = useState('all');
 
@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     fetchMovies();
-    fetchPopularMovies();
+    fetchRandomMovies();
   }, []);
 
   const fetchMovies = async () => {
@@ -36,20 +36,37 @@ function App() {
     setLoading(false);
   };
 
-  const fetchPopularMovies = async () => {
+  const fetchRandomMovies = async () => {
     setLoading(true);
     try {
-      const [page1, page2] = await Promise.all([
-        axios.get(`https://www.omdbapi.com/?s=2023&type=movie&page=1&apikey=${OMDB_API_KEY}`),
-        axios.get(`https://www.omdbapi.com/?s=2023&type=movie&page=2&apikey=${OMDB_API_KEY}`)
-      ]);
-      const results = [
-        ...(page1.data.Search || []),
-        ...(page2.data.Search || [])
-      ].slice(0, 15);
-      setPopularMovies(results);
+      const collected = [];
+      const seen = new Set();
+
+      const getRandomLetter = () =>
+        String.fromCharCode(97 + Math.floor(Math.random() * 26));
+
+      while (collected.length < 15) {
+        const letter = getRandomLetter();
+        const page = Math.floor(Math.random() * 2) + 1;
+        const res = await axios.get(
+          `https://www.omdbapi.com/?s=${letter}&type=movie&page=${page}&apikey=${OMDB_API_KEY}`
+        );
+        const results = res.data.Search || [];
+        for (const movie of results) {
+          if (
+            movie.Poster &&
+            movie.Poster !== 'N/A' &&
+            !seen.has(movie.imdbID)
+          ) {
+            collected.push(movie);
+            seen.add(movie.imdbID);
+            if (collected.length === 15) break;
+          }
+        }
+      }
+      setRandomMovies(collected.slice(0, 15));
     } catch (error) {
-      console.error('Error fetching popular movies:', error);
+      console.error('Error fetching random movies:', error);
     }
     setLoading(false);
   };
@@ -156,8 +173,8 @@ function App() {
             <button className="clear-btn" onClick={clearSearch}>Clear</button>
           </div>
 
-          <div className={`movie-grid ${searchResults.length || popularMovies.length ? 'fade-in' : ''}`}>
-            {(searchResults.length ? searchResults : popularMovies).map(movie => (
+          <div className={`movie-grid ${searchResults.length || randomMovies.length ? 'fade-in' : ''}`}>
+            {(searchResults.length ? searchResults : randomMovies).map(movie => (
               <div key={movie.imdbID} className="movie-card">
                 <div className="movie-image-wrapper">
                   <img src={movie.Poster} alt={movie.Title} />
