@@ -32,7 +32,6 @@ body::before {
   pointer-events: none;
   background-image: radial-gradient(#ffffff55 1px, transparent 1px);
   background-size: 3px 3px;
-  animation: starScroll 60s linear infinite;
   opacity: 0.2;
 }
 
@@ -129,13 +128,14 @@ body::before {
 }
 
 .app-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 1000;
-  background: var(--header-bg);
+  background: rgba(15, 23, 42, 0.85);
   color: var(--text-color);
-  padding: 1.5rem 0;
+  padding: 0.75rem 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .header-content {
@@ -158,14 +158,10 @@ body::before {
   font-size: 2rem;
 }
 
-.title-wrapper {
-  display: flex;
-  flex-direction: column;
-}
 
-.site-title {
+.site-title-text {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
@@ -182,22 +178,27 @@ body::before {
 }
 
 .nav-tabs button {
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  border: none;
   color: var(--text-color);
-  font-weight: 500;
-  padding: 0.45rem 1.25rem;
-  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  margin-left: 1rem;
+  transition: color 0.3s ease;
 }
 
 .nav-tabs button:hover,
 .nav-tabs button.active {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: #fff;
+  color: var(--primary);
+}
+
+.tab-divider {
+  width: 1px;
+  height: 60%;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin: 0 1rem;
+  align-self: center;
 }
 
 .section-title {
@@ -493,7 +494,6 @@ body::before {
 
   .nav-tabs button {
     flex: 1 1 auto;
-    margin-left: 0;
     padding: 0.5rem;
     font-size: 0.9rem;
   }
