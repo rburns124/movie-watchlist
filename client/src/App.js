@@ -11,7 +11,8 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [randomMovies, setRandomMovies] = useState([]); // 15 random movies
+  // Holds a small set of movies to suggest to the user
+  const [randomMovies, setRandomMovies] = useState([]);
   const [activeTab, setActiveTab] = useState('search');
   const [filter, setFilter] = useState('all');
 
