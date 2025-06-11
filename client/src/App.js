@@ -109,7 +109,7 @@ function App() {
             >
               My Watchlist
             </button>
-            <div className="tab-divider" />
+            <span className="tab-divider">|</span>
             <button
               className={activeTab === 'search' ? 'active' : ''}
               onClick={() => setActiveTab('search')}
