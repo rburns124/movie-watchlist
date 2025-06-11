@@ -11,7 +11,7 @@ function App() {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [randomMovies, setRandomMovies] = useState([]); // 15 random movies
+  const [randomMovies, setRandomMovies] = useState([]); // 5 random movies
   const [activeTab, setActiveTab] = useState('search');
   const [filter, setFilter] = useState('all');
 
@@ -45,7 +45,8 @@ function App() {
       const getRandomLetter = () =>
         String.fromCharCode(97 + Math.floor(Math.random() * 26));
 
-      while (collected.length < 15) {
+      const limit = 5;
+      while (collected.length < limit) {
         const letter = getRandomLetter();
         const page = Math.floor(Math.random() * 2) + 1;
         const res = await axios.get(
@@ -53,18 +54,14 @@ function App() {
         );
         const results = res.data.Search || [];
         for (const movie of results) {
-          if (
-            movie.Poster &&
-            movie.Poster !== 'N/A' &&
-            !seen.has(movie.imdbID)
-          ) {
+          if (!seen.has(movie.imdbID)) {
             collected.push(movie);
             seen.add(movie.imdbID);
-            if (collected.length === 15) break;
+            if (collected.length === limit) break;
           }
         }
       }
-      setRandomMovies(collected.slice(0, 15));
+      setRandomMovies(collected.slice(0, limit));
     } catch (error) {
       console.error('Error fetching random movies:', error);
     }
@@ -181,7 +178,11 @@ function App() {
             {(searchResults.length ? searchResults : randomMovies).map(movie => (
               <div key={movie.imdbID} className="movie-card">
                 <div className="movie-image-wrapper">
-                  <img src={movie.Poster} alt={movie.Title} />
+                  {movie.Poster && movie.Poster !== 'N/A' ? (
+                    <img src={movie.Poster} alt={movie.Title} />
+                  ) : (
+                    <div className="no-image">No Image</div>
+                  )}
                   <div className="overlay">
                     <p className="overlay-title">{movie.Title}</p>
                     <button onClick={() => addMovieFromSearch(movie)}>Add Movie</button>
@@ -216,7 +217,11 @@ function App() {
               {filteredMovies.map(movie => (
                 <div key={movie.id} className="movie-card">
                   <div className="movie-image-wrapper">
-                    <img src={movie.poster_url} alt={movie.title} />
+                    {movie.poster_url && movie.poster_url !== 'N/A' ? (
+                      <img src={movie.poster_url} alt={movie.title} />
+                    ) : (
+                      <div className="no-image">No Image</div>
+                    )}
                     <div className="overlay">
                       <p className="overlay-title">{movie.title}</p>
                       <button onClick={() => toggleWatched(movie.id)}>
