@@ -169,6 +169,11 @@ body::before {
   font-weight: 700;
 }
 
+.site-logo {
+  width: 200px;
+  height: auto;
+}
+
 .site-subtitle {
   margin-top: 0.3rem;
   font-size: 1rem;
@@ -491,6 +496,10 @@ body::before {
     margin-left: 0;
     padding: 0.5rem;
     font-size: 0.9rem;
+  }
+
+  .site-logo {
+    width: 150px;
   }
 
   .search-bar {

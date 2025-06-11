@@ -104,7 +104,11 @@ function App() {
         <div className="app-header-left">
           <span className="logo">🍿</span>
           <div className="title-wrapper">
-            <h1 className="site-title">Movie Watchlist</h1>
+            <img
+              src={`${process.env.PUBLIC_URL}/images/moviewatchlist_logo.png`}
+              alt="Movie Watchlist"
+              className="site-logo"
+            />
             <p className="site-subtitle">by Rob Burns</p>
           </div>
         </div>
