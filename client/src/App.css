@@ -183,7 +183,7 @@ body {
 }
 
 .nav-tabs button:hover {
-  color: #6b5b95; /* purplish blue */
+  color: #6b5b95; /* accent color */
 }
 
 .tab-divider {
@@ -495,7 +495,7 @@ body {
   transform: translateY(-2px);
 }
 
-/* MOBILE STYLES */
+/* smaller screens */
 @media (max-width: 600px) {
   .header-content {
     flex-direction: column;

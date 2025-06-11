@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./db'); // db = pool from pg
+const db = require('./db'); // shared database pool
 
-// Get all movies
+// Return every movie in the list
 router.get('/movies', (req, res) => {
   db.query('SELECT * FROM movies')
     .then(result => res.json(result.rows))
@@ -12,7 +12,7 @@ router.get('/movies', (req, res) => {
     });
 });
 
-// Add a movie
+// Save a new movie
 router.post('/movies', (req, res) => {
   const { title, poster_url } = req.body;
   db.query(
@@ -26,7 +26,7 @@ router.post('/movies', (req, res) => {
     });
 });
 
-// Toggle watched
+// Flip the watched flag
 router.put('/movies/:id', (req, res) => {
   db.query(
     'UPDATE movies SET watched = NOT watched WHERE id = $1',
@@ -39,7 +39,7 @@ router.put('/movies/:id', (req, res) => {
     });
 });
 
-// Delete movie
+// Remove a movie entirely
 router.delete('/movies/:id', (req, res) => {
   db.query(
     'DELETE FROM movies WHERE id = $1',
