@@ -101,25 +101,22 @@ function App() {
 
       <header className="app-header">
         <div className="header-content">
-        <div className="app-header-left">
-          <span className="logo">🍿</span>
-          <div className="title-wrapper">
-            <img
-              src={`${process.env.PUBLIC_URL}/images/moviewatchlist_logo.png`}
-              alt="Movie Watchlist"
-              className="site-logo"
-            />
-            <p className="site-subtitle">by Rob Burns</p>
+          <h1 className="site-title-text">Movie Watchlist</h1>
+          <div className="nav-tabs">
+            <button
+              className={activeTab === 'watchlist' ? 'active' : ''}
+              onClick={() => setActiveTab('watchlist')}
+            >
+              My Watchlist
+            </button>
+            <div className="tab-divider" />
+            <button
+              className={activeTab === 'search' ? 'active' : ''}
+              onClick={() => setActiveTab('search')}
+            >
+              Search Movies
+            </button>
           </div>
-        </div>
-        <div className="nav-tabs">
-          {activeTab !== 'search' && (
-            <button onClick={() => setActiveTab('search')}>Search Movies</button>
-          )}
-          {activeTab !== 'watchlist' && (
-            <button onClick={() => setActiveTab('watchlist')}>My Watchlist</button>
-          )}
-        </div>
         </div>
       </header>
 
