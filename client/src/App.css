@@ -183,7 +183,7 @@ body {
 }
 
 .nav-tabs button:hover {
-  color: var(--primary);
+  color: purple;
 }
 
 .tab-divider {
@@ -243,8 +243,15 @@ body {
 }
 
 .search-bar button:hover {
-  background-color: var(--primary);
   transform: translateY(-2px);
+}
+
+.search-bar button:not(.clear-btn):hover {
+  background-color: var(--primary);
+}
+
+.search-bar .clear-btn:hover {
+  background-color: var(--danger);
 }
 
 .movie-grid {
